@@ -1,0 +1,24 @@
+#!/bin/sh
+# Pre-push: lint and import sorting for backend Python code.
+set -e
+ROOT="$(git rev-parse --show-toplevel)"
+BACKEND="${ROOT}/backend"
+cd "$ROOT"
+
+echo "Running isort (check + diff)..."
+if ! (cd "$BACKEND" && isort --check-only --diff . 2>/dev/null); then
+  echo "Fix imports: cd backend && isort ."
+  exit 1
+fi
+
+echo "Running black (check)..."
+if ! (cd "$BACKEND" && black --check . 2>/dev/null); then
+  echo "Fix format: cd backend && black ."
+  exit 1
+fi
+
+echo "Running flake8..."
+(cd "$BACKEND" && flake8 .) || exit 1
+
+echo "Pre-push checks passed."
+exit 0

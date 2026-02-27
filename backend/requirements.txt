@@ -1,0 +1,10 @@
+Django>=5.0,<6
+djangorestframework>=3.14,<4
+psycopg[binary]>=3.1,<4
+PyJWT>=2.8,<3
+gunicorn>=22.0,<23
+flake8>=7.0,<8
+isort>=5.13,<6
+black>=24.0,<25
+pytest>=8.0,<9
+pytest-django>=4.8,<5
